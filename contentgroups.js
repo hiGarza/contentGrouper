@@ -16,17 +16,24 @@ angular.module('contentgroups', [])
     };
 
     cg.changeCG = function(selectedCG){
-      cg.cgStack.push(selectedCG);
-      cg.fetchContentGroups(cg.cgStack[cg.cgStack.length - 1]["Id"]);
+      if (!cg.addingCG){
+        cg.cgStack.push(selectedCG);
+        cg.fetchContentGroups(cg.cgStack[cg.cgStack.length - 1]["Id"]);
+      }
     };
 
     cg.addNewCG = function(){
+      cg.addingCG = true;
       cg.newCG = {
         "Parent" : cg.cgStack[cg.cgStack.length - 1]["Id"],
         "GrandParent" : cg.cgStack[cg.cgStack.length - 1]["Parent"]
       };
       cg.newCGTypeList = cg.templates.find(x => x["Id"] == cg.cgStack[cg.cgStack.length - 1]["CGType"])["Childrens"];
       cg.newCG["CGType"] = cg.newCGTypeList[0];
+    };
+
+    cg.stopAddingCG = function(){
+      cg.addingCG = false;
     };
 
     cg.changenewCGType = function(newType){
@@ -42,6 +49,8 @@ angular.module('contentgroups', [])
         console.log(response);
       }, function(error){console.log(error)});
     };
+
+    cg.addingCG = false;
 
     cg.templates = [];
     $http.get("https://n0d9d0r79b.execute-api.us-west-1.amazonaws.com/Production/contentgroups?Parent=Template")

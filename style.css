@@ -3,3 +3,8 @@
   margin-left: auto;
   max-width: 1028px;
 }
+
+.disabledArrow{
+	cursor: default;
+	color: grey;
+}
