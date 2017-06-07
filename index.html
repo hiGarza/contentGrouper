@@ -68,7 +68,7 @@
             New
             <span class="dropdown">
               <span class="dropdown-toggle" data-toggle="dropdown" role="button">
-                {{cg.newCG["Type"]}}<span class="caret"></span>
+                {{cg.newCG["CGType"]}}<span class="caret"></span>
               </span>
               <ul class="dropdown-menu">
                 <li ng-repeat="type in cg.newCGTypeList" ng-click="cg.changenewCGType(type)"><a>{{type}}</a></li>
@@ -91,6 +91,7 @@
                 <input type="text" class="form-control" ng-model="cg.newCG['Description']">
               </div>
             </div>
+            <hr class="separator">
           </form>
           <div class="pull-right">
             <button type="button" class="btn btn-success" ng-click="cg.saveNewCG()"><span class="glyphicon glyphicon-save"></span></button>
@@ -99,7 +100,7 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-primary collapse in newCG" data-toggle="collapse" data-target=".newCG" ng-click="cg.addNewCG()"><span class="glyphicon glyphicon-plus"></span></button>
   </div>
+  <button type="button" class="btn btn-primary collapse in newCG" data-toggle="collapse" data-target=".newCG" ng-click="cg.addNewCG()"><span class="glyphicon glyphicon-plus"></span></button>
   </body>
 </html>

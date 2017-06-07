@@ -25,17 +25,20 @@ angular.module('contentgroups', [])
         "Parent" : cg.cgStack[cg.cgStack.length - 1]["Id"],
         "GrandParent" : cg.cgStack[cg.cgStack.length - 1]["Parent"]
       };
-      cg.newCGTypeList = cg.templates.find(x => x["Id"] == cg.cgStack[cg.cgStack.length - 1]["Type"])["Childrens"];
-      cg.newCG["Type"] = cg.newCGTypeList[0];
+      cg.newCGTypeList = cg.templates.find(x => x["Id"] == cg.cgStack[cg.cgStack.length - 1]["CGType"])["Childrens"];
+      cg.newCG["CGType"] = cg.newCGTypeList[0];
     };
 
     cg.changenewCGType = function(newType){
-      cg.newCG["Type"] = newType;
+      cg.newCG["CGType"] = newType;
     };
 
     cg.saveNewCG = function(){
       $http.post("https://n0d9d0r79b.execute-api.us-west-1.amazonaws.com/Production/contentgroups", cg.newCG)
       .then(function(response){
+        cg.newCG["Id"] = response.data["Id"];
+        cg.contentGroups.push(cg.newCG);
+        cg.addNewCG();
         console.log(response);
       }, function(error){console.log(error)});
     };
@@ -54,7 +57,7 @@ angular.module('contentgroups', [])
       "Id": "root",
       "Name": "root",
       "Parent": "seed",
-      "Type": "root"
+      "CGType": "root"
     }];
     cg.fetchContentGroups(cg.cgStack[cg.cgStack.length - 1]["Id"]);
 
